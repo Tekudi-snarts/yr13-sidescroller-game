@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjvbnrmqhgl3i"]
+
+[ext_resource type="Script" path="res://snail.gd" id="1_lx865"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8k5nf"]
+size = Vector2(31, 35)
+
+[node name="snail" type="CharacterBody2D"]
+script = ExtResource("1_lx865")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(367, 129)
+shape = SubResource("RectangleShape2D_8k5nf")

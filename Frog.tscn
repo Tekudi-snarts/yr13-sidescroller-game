@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://4io1vg8e1cwi"]
+
+[ext_resource type="Script" path="res://Frog.gd" id="1_h1wq8"]
+[ext_resource type="Texture2D" uid="uid://d4n0cdb42dkc" path="res://Character/sprites/pixil-frame-0 (1).png" id="2_3cnrx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5r6w0"]
+size = Vector2(6, 10.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0pjvl"]
+radius = 163.11
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_24n46"]
+size = Vector2(26.5, 28.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qpeci"]
+size = Vector2(26.5, 13.75)
+
+[node name="Frog" type="CharacterBody2D"]
+script = ExtResource("1_h1wq8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8.375, -12.25)
+scale = Vector2(0.4525, 0.455)
+texture = ExtResource("2_3cnrx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, -9.75)
+shape = SubResource("RectangleShape2D_5r6w0")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource("CircleShape2D_0pjvl")
+
+[node name="PlayerDeath" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeath"]
+position = Vector2(2.75, -13.625)
+shape = SubResource("RectangleShape2D_24n46")
+
+[node name="PlayerCollison" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCollison"]
+position = Vector2(2.75, -6.125)
+shape = SubResource("RectangleShape2D_qpeci")
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+[connection signal="body_entered" from="PlayerDeath" to="." method="_on_player_death_body_entered"]
+[connection signal="body_entered" from="PlayerCollison" to="." method="_on_player_collison_body_entered"]

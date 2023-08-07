@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://key66gxt5vle"]
+
+[ext_resource type="Texture2D" uid="uid://hq8jw31540mo" path="res://Collectables/pixil-frame-0.png" id="1_kexib"]
+
+[sub_resource type="GDScript" id="GDScript_u1ajf"]
+script/source = "extends Area2D
+
+
+
+
+func _on_body_entered(body):
+	if body.name == \"player\":
+		Game.Gold += 5
+		var tween = get_tree().create_tween()
+		var tween1 = get_tree().create_tween()
+		tween.tween_property(self, \"position\", position - Vector2(0,35), 0.35)
+		tween1.tween_property(self, \"modulate:a\", 0, 0.3)
+		
+		tween.tween_callback(queue_free)
+		
+		
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rd73r"]
+size = Vector2(32, 31.5)
+
+[node name="Cherry" type="Area2D"]
+script = SubResource("GDScript_u1ajf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3, 13)
+texture = ExtResource("1_kexib")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 1.75)
+shape = SubResource("RectangleShape2D_rd73r")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

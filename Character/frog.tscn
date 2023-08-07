@@ -1,0 +1,137 @@
+[gd_scene load_steps=21 format=3 uid="uid://4io1vg8e1cwi"]
+
+[ext_resource type="Script" path="res://frog.gd" id="1_ycc8a"]
+[ext_resource type="Texture2D" uid="uid://cxoq4mfrpsym5" path="res://Sunny-land-files/Sunny-land-assets-files/PNG/spritesheets/enemy-deadth.png" id="2_s7mb7"]
+[ext_resource type="Texture2D" uid="uid://dqn66wsdxt4hv" path="res://Sunny-land-files/Sunny-land-assets-files/PNG/spritesheets/frog-idle.png" id="3_l03no"]
+[ext_resource type="Texture2D" uid="uid://0vxg673nr403" path="res://Sunny-land-files/Sunny-land-assets-files/PNG/spritesheets/frog-jump.png" id="4_ttxrp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ytejg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fmpsk"]
+atlas = ExtResource("2_s7mb7")
+region = Rect2(0, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr4vf"]
+atlas = ExtResource("2_s7mb7")
+region = Rect2(40, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_naj1y"]
+atlas = ExtResource("2_s7mb7")
+region = Rect2(80, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bycya"]
+atlas = ExtResource("2_s7mb7")
+region = Rect2(120, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5pxk"]
+atlas = ExtResource("2_s7mb7")
+region = Rect2(160, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_171o2"]
+atlas = ExtResource("2_s7mb7")
+region = Rect2(200, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h0l3"]
+atlas = ExtResource("3_l03no")
+region = Rect2(0, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6q6m2"]
+atlas = ExtResource("3_l03no")
+region = Rect2(35, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bygnr"]
+atlas = ExtResource("3_l03no")
+region = Rect2(70, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7d0h"]
+atlas = ExtResource("3_l03no")
+region = Rect2(105, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrdkf"]
+atlas = ExtResource("4_ttxrp")
+region = Rect2(0, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42lhl"]
+atlas = ExtResource("4_ttxrp")
+region = Rect2(35, 0, 35, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83yxk"]
+atlas = ExtResource("4_ttxrp")
+region = Rect2(70, 0, 35, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_62sut"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fmpsk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xr4vf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_naj1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bycya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5pxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_171o2")
+}],
+"loop": true,
+"name": &"death",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4h0l3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6q6m2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bygnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7d0h")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrdkf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42lhl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83yxk")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u44bs"]
+radius = 22.2036
+
+[node name="frog" type="CharacterBody2D"]
+script = ExtResource("1_ycc8a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ytejg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_62sut")
+animation = &"idle"
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource("CircleShape2D_u44bs")
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
